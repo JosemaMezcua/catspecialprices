@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NUEVO</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Syne:wght@800&display=swap");
+
+    :root {
+      --fg: #fff8e8;
+      --accent: #ffd36a;
+      --enter-y: 24px;
+      --enter-scale: 0.88;
+      --enter-rotate: -4deg;
+      --peak-rotate: 1.5deg;
+      --exit-scale: 1.05;
+      --shift-x: 0px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: transparent;
+      overflow: hidden;
+      font-family: "Syne", sans-serif;
+      padding: 16px;
+      padding-top: max(16px, env(safe-area-inset-top));
+      padding-right: max(16px, env(safe-area-inset-right));
+      padding-bottom: max(16px, env(safe-area-inset-bottom));
+      padding-left: max(16px, env(safe-area-inset-left));
+    }
+
+    .poster {
+      position: relative;
+      display: inline-block;
+      max-width: 100%;
+      white-space: nowrap;
+      line-height: 1;
+      padding-inline: 0.05em 0.1em;
+      font-size: clamp(3rem, 16vw, 10rem);
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      color: transparent;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, #fff, var(--accent), var(--fg), #fff);
+      background-size: 220% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-stroke: 1px rgba(255, 248, 232, 0.65);
+      text-shadow: 0 0 10px rgba(255, 211, 106, 0.12);
+      opacity: 0;
+      transform: translateX(var(--shift-x)) translateY(var(--enter-y)) scale(var(--enter-scale)) rotate(var(--enter-rotate));
+      animation: cinematicIn 2.8s cubic-bezier(0.2, 0.8, 0.15, 1) forwards;
+      will-change: transform, opacity, background-position;
+    }
+
+    @keyframes cinematicIn {
+      0% {
+        opacity: 0;
+        transform: translateX(var(--shift-x)) translateY(var(--enter-y)) scale(var(--enter-scale)) rotate(var(--enter-rotate));
+        background-position: 0% 50%;
+      }
+      20% {
+        opacity: 1;
+        transform: translateX(var(--shift-x)) translateY(0) scale(1.03) rotate(var(--peak-rotate));
+      }
+      40% {
+        transform: translateX(var(--shift-x)) translateY(0) scale(1) rotate(0deg);
+        background-position: 100% 50%;
+      }
+      82% {
+        opacity: 1;
+        transform: translateX(var(--shift-x)) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateX(var(--shift-x)) scale(var(--exit-scale));
+      }
+    }
+
+    @media (max-width: 600px) {
+      :root {
+        --enter-y: 16px;
+        --enter-scale: 0.93;
+        --enter-rotate: -1deg;
+        --peak-rotate: 0deg;
+        --exit-scale: 1.01;
+        --shift-x: -8px;
+      }
+
+      .poster {
+        font-size: clamp(2.1rem, 15vw, 4.8rem);
+        letter-spacing: 0.1em;
+        padding-inline: 0.04em 0.14em;
+        -webkit-text-stroke: 0.8px rgba(255, 248, 232, 0.65);
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1 style="text-align: center;" class="poster" id="poster">SPECIAL <br>PRICES<br> <br>HASTA<br> <br>-40%<br></h1>
+
+  <script>
+    const targetUrl = "https://www.yelloworiginal.com/colecciones/special-prices";
+    const poster = document.getElementById("poster");
+    let redirected = false;
+
+    function goToTarget() {
+      if (redirected) return;
+      redirected = true;
+      window.location.href = targetUrl;
+    }
+
+    poster.addEventListener("animationend", goToTarget);
+    setTimeout(goToTarget, 3200);
+  </script>
+</body>
+</html>
