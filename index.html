@@ -13,11 +13,11 @@
     }
 
     :root {
-      --fg: #fff8e8;
-      --accent: #ffd36a;
-      --enter-y: 24px;
-      --enter-scale: 0.94;
-      --exit-scale: 1.03;
+      --fg: #ffd046;
+      --accent: #ffdf7a;
+      --enter-y: 34px;
+      --enter-scale: 0.82;
+      --exit-scale: 1.08;
       --offset-x: 0px;
     }
 
@@ -39,6 +39,8 @@
       padding-right: max(16px, env(safe-area-inset-right));
       padding-bottom: max(16px, env(safe-area-inset-bottom));
       padding-left: max(16px, env(safe-area-inset-left));
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
     }
 
     .poster {
@@ -49,16 +51,16 @@
       width: auto;
       max-width: 100%;
       margin-inline: auto;
-      line-height: 1.03;
-      font-size: clamp(1.25rem, 5.6vw, 2.6rem);
+      line-height: 1.01;
+      font-size: clamp(2.8rem, 11vw, 6rem);
       font-weight: 800;
-      letter-spacing: 0.018em;
+      letter-spacing: 0.02em;
       text-transform: uppercase;
       color: var(--fg);
       text-align: center;
       opacity: 0;
       transform: translateX(var(--offset-x)) translateY(var(--enter-y)) scale(var(--enter-scale));
-      animation: cinematicIn 2.8s cubic-bezier(0.2, 0.8, 0.15, 1) forwards;
+      animation: cinematicIn 5.2s cubic-bezier(0.22, 0.7, 0.2, 1) forwards;
       will-change: transform, opacity;
     }
 
@@ -67,13 +69,28 @@
       white-space: nowrap;
       text-align: center;
       color: var(--fg);
-      text-shadow: 0 0 6px rgba(255, 211, 106, 0.08);
+      text-shadow: 0 0 0 rgba(0, 0, 0, 0);
+      opacity: 0;
+      transform: translateY(24px) scale(0.96);
+      animation: lineIn 5.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
     }
 
     .poster .small {
       margin-top: 0.18em;
-      font-size: 0.58em;
-      letter-spacing: 0.03em;
+      font-size: 0.52em;
+      letter-spacing: 0.024em;
+    }
+
+    .poster span:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    .poster span:nth-child(2) {
+      animation-delay: 0.45s;
+    }
+
+    .poster span:nth-child(3) {
+      animation-delay: 0.8s;
     }
 
     @keyframes cinematicIn {
@@ -81,14 +98,14 @@
         opacity: 0;
         transform: translateX(var(--offset-x)) translateY(var(--enter-y)) scale(var(--enter-scale));
       }
-      20% {
+      22% {
         opacity: 1;
-        transform: translateX(var(--offset-x)) translateY(0) scale(1.01);
+        transform: translateX(var(--offset-x)) translateY(0) scale(1.02);
       }
-      40% {
+      80% {
         transform: translateX(var(--offset-x)) translateY(0) scale(1);
       }
-      82% {
+      92% {
         opacity: 1;
         transform: translateX(var(--offset-x)) scale(1);
       }
@@ -98,11 +115,39 @@
       }
     }
 
+    @keyframes lineIn {
+      0% {
+        opacity: 0;
+        transform: translateY(24px) scale(0.96);
+        color: #f3b81f;
+      }
+      20% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        color: var(--accent);
+      }
+      72% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        color: var(--fg);
+      }
+      88% {
+        opacity: 1;
+        transform: translateY(0);
+        color: var(--fg);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-10px) scale(1.01);
+        color: var(--fg);
+      }
+    }
+
     @media (max-width: 1024px) {
       :root {
-        --enter-y: 8px;
-        --enter-scale: 1;
-        --exit-scale: 1;
+        --enter-y: 14px;
+        --enter-scale: 0.92;
+        --exit-scale: 1.04;
         --offset-x: 0px;
       }
 
@@ -116,27 +161,27 @@
 
       .poster {
         max-width: calc(100vw - 24px);
-        font-size: clamp(1.1rem, 6.2vw, 2rem);
-        letter-spacing: 0.012em;
-        line-height: 1.06;
+        font-size: clamp(2.4rem, 13vw, 4.8rem);
+        letter-spacing: 0.016em;
+        line-height: 1.03;
       }
 
       .poster .small {
-        font-size: 0.62em;
-        letter-spacing: 0.02em;
+        font-size: 0.56em;
+        letter-spacing: 0.018em;
       }
     }
 
     @media (max-width: 430px) {
       .poster {
         max-width: calc(100vw - 20px);
-        font-size: clamp(0.98rem, 7.2vw, 1.45rem);
-        letter-spacing: 0.01em;
+        font-size: clamp(2rem, 15vw, 3.8rem);
+        letter-spacing: 0.014em;
       }
 
       .poster .small {
-        font-size: 0.66em;
-        letter-spacing: 0.018em;
+        font-size: 0.58em;
+        letter-spacing: 0.016em;
       }
     }
   </style>
@@ -160,7 +205,7 @@
     }
 
     poster.addEventListener("animationend", goToTarget);
-    setTimeout(goToTarget, 3200);
+    setTimeout(goToTarget, 5600);
   </script>
 </body>
 </html>
